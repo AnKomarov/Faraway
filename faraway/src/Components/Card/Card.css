@@ -1,0 +1,15 @@
+.Label{
+  font-weight: bold;
+}
+
+.CardInfo__label {
+  display: inline-block;
+}
+
+.CardInfo {
+  margin: 1px;
+  flex: 1 1 auto;
+  min-height: 10rem;
+  width: 20rem;
+  max-width: 20rem;
+}

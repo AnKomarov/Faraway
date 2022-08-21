@@ -1,3 +1,7 @@
 export interface Data {
-  name: string
+  name: string,
+  gender: string,
+  birth_year: string,
+  height: string,
+  mass: string,
 }
