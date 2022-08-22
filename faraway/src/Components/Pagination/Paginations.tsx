@@ -3,7 +3,7 @@ import './Pagination.css'
 
 const Pagination = (props: any) => {
   const { totalCards, currentPage, setCurrentPage } = props;
-  const pageNumbers: any = [];//todo спросить
+  const pageNumbers: number[] = [];
 
   for (let i = 1; i <= Math.ceil(totalCards / CARDS_PER_PAGE); i++) {
     pageNumbers.push(i);

@@ -1,12 +1,12 @@
 import { useEffect, useState, useMemo } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import getData from './DataController/DataController';
-import CardInfo from './Components/Card/Card';
-import { Container } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
 import { CARDS_PER_PAGE } from './Constants/Constants';
-import Pagination from './Components/Pagination/Paginations';
 import { filterInputData, useDebounce } from './Utils/Utils';
-import { PulseLoader } from 'react-spinners';
+import Main from './Components/Pages/Main/Main';
+import { Container } from 'react-bootstrap';
+import Navigation from './Components/Navigation/Navigation';
+import Details from './Components/Pages/Details/Details';
 import './App.css';
 
 function App() {
@@ -15,47 +15,49 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentCards, setCurrentCards] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const debouncedSearchTerm = useDebounce(inputValue, 500);
+  const [detailedInfo, setDetailedInfo] = useState({});
+  const debouncedSearch = useDebounce(inputValue, 500);
 
   useEffect(() => {
-    getData('people', setData, setIsReadyData);
+    const url = 'https://swapi.dev/api/people'
+    getData(url, setData, setIsReadyData);
   }, [])
 
   useEffect(() => {
-    const indexOfLastPost = currentPage * CARDS_PER_PAGE;
-    const indexOfFirstPost = indexOfLastPost - CARDS_PER_PAGE;
-    setCurrentCards(data.slice(indexOfFirstPost, indexOfLastPost));
+    const indexOfLastCard = currentPage * CARDS_PER_PAGE;
+    const indexOfFirstCard = indexOfLastCard - CARDS_PER_PAGE;
+    console.log(data);
+    
+    setCurrentCards(data.slice(indexOfFirstCard, indexOfLastCard));
   }, [isReadyData, currentPage])
 
   const filteredData = useMemo(() => {
     return filterInputData(currentCards, inputValue)
-  }, [debouncedSearchTerm, currentCards])
+  }, [debouncedSearch, currentCards])
 
   return (
     <div className="App StarWars ">
-        <Container className='StarWars__container d-md-flex flex-column mb-3'>
-          <div className='StarWars__title'>Star Wars</div>
-          <>
-            <Form.Control
-              type='text'
-              id='inputText'
-              placeholder='Search by name'
-              onChange={(event) => setInputValue(event.target.value)
-              }
-            />
-          </>
-          {isReadyData && 
-          <>
-            <div className='StarWars__content'>
-              {filteredData.map((d, idx) => {
-                return <CardInfo key={idx} data={d}></CardInfo>
-              })}
-            </div>
-            <Pagination className='StarWars__pagination' totalCards={data.length} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
-          </>
-          }
-          <PulseLoader className='StarWars__spinner' loading={!isReadyData} color={'#45b6fe'}/>
-        </Container>
+      <Container className='StarWars__container d-md-flex flex-column mb-3'>
+        <div className='StarWars__title'>Star Wars</div>
+        <Navigation/>
+        <Routes>
+          <Route path='/' element={ 
+            <Main 
+              isReadyData={isReadyData}
+              filteredData={filteredData}
+              dataLength={data.length}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              setInputValue={setInputValue}
+              setDetailedInfo={setDetailedInfo}
+            />}>
+          </Route>
+          <Route path='/details' element={
+            <Details data={detailedInfo}/>
+          }>
+          </Route>
+        </Routes>
+      </Container>
     </div>
   );
 }
