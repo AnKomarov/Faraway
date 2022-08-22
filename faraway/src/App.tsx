@@ -10,24 +10,33 @@ import Details from './Components/Pages/Details/Details';
 import './App.css';
 
 function App() {
+  const emptyData = {
+    name: '',
+    gender: '',
+    birth_year: '',
+    height: '',
+    mass: '',
+    homeworld: '',
+    skin_color: '',
+    films: [],
+    starships: []
+  }
   const [data, setData] = useState([]);
   const [isReadyData, setIsReadyData] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentCards, setCurrentCards] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const [detailedInfo, setDetailedInfo] = useState({});
+  const [detailedInfo, setDetailedInfo] = useState(emptyData);
   const debouncedSearch = useDebounce(inputValue, 500);
 
   useEffect(() => {
-    const url = 'https://swapi.dev/api/people'
-    getData(url, setData, setIsReadyData);
+    getData('people', setData, setIsReadyData);
   }, [])
 
   useEffect(() => {
     const indexOfLastCard = currentPage * CARDS_PER_PAGE;
     const indexOfFirstCard = indexOfLastCard - CARDS_PER_PAGE;
-    console.log(data);
-    
+
     setCurrentCards(data.slice(indexOfFirstCard, indexOfLastCard));
   }, [isReadyData, currentPage])
 

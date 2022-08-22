@@ -1,7 +1,8 @@
 import { CARDS_PER_PAGE } from "../../Constants/Constants";
+import { PaginationInterface } from "../../Constants/Interfaces";
 import './Pagination.css'
 
-const Pagination = (props: any) => {
+const Pagination = (props: PaginationInterface) => {
   const { totalCards, currentPage, setCurrentPage } = props;
   const pageNumbers: number[] = [];
 

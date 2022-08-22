@@ -4,11 +4,10 @@ import Form from 'react-bootstrap/Form';
 import CardInfo from "../../Card/Card";
 import Pagination from "../../Pagination/Paginations";
 import { PulseLoader } from 'react-spinners';
-import { Data, MainPage } from '../../../Constants/Interfaces';
-
+import { DataInterface, MainPageInterface } from '../../../Constants/Interfaces';
 import './Main.css';
 
-const Main = (props: MainPage) => {
+const Main = (props: MainPageInterface) => {
   const { 
     isReadyData, 
     filteredData, 
@@ -35,11 +34,11 @@ const Main = (props: MainPage) => {
       {isReadyData && 
       <>
         <div className='StarWars__content'>
-          {filteredData.map((d: Data, idx: number) => {
+          {filteredData.map((d: DataInterface, idx: number) => {
             return <CardInfo key={idx} data={d} moreInfoClick={moreInfoClick}></CardInfo>
           })}
         </div>
-        <Pagination className='StarWars__pagination' totalCards={dataLength} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+        <Pagination totalCards={dataLength} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
       </>
       }
      <PulseLoader className='StarWars__spinner' loading={!isReadyData} color={'#45b6fe'}/>

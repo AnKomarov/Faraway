@@ -1,18 +1,18 @@
-import { Data } from '../../Constants/Interfaces';
+import { DataInterface } from '../../Constants/Interfaces';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Card.css';
 import { ListGroup } from 'react-bootstrap';
 
-const CardInfo = (props:{ data: Data, moreInfoClick: any }) => {
+const CardInfo = (props:{ data: DataInterface, moreInfoClick: any }) => {
   const {
     name,
     gender,
     mass,
     height
   } = props.data;
-  
+
   return (
     <Card className='mb-2 CardInfo' style={{color: '#000'}}>
       <Card.Body>

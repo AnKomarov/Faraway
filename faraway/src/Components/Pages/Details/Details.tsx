@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
-import { DetailsPage } from '../../../Constants/Interfaces';
-import getData, { getDataArr } from '../../../DataController/DataController';
+import { DetailsPageInterface } from '../../../Constants/Interfaces';
+import { getDataArr } from '../../../DataController/DataController';
 import { BarLoader } from 'react-spinners';
 import './Details.css'
 
-const Details = (props: DetailsPage | any) => {
+const Details = (props: DetailsPageInterface) => {
   const {
     name,
     gender,
@@ -17,6 +17,7 @@ const Details = (props: DetailsPage | any) => {
     films: filmsUrls,
     starships: starshipsUrls,
   } = props.data;
+
   const [films, getFilms] = useState([{title: ''}]);
   const [isReadyDataFilms, setIsReadyDataFilms] = useState(false);
   const [home, getHome] = useState([{name: ''}]);

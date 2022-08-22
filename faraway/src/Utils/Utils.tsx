@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
+import { DataInterface } from "@/Constants/Interfaces";
 
-
-export const filterInputData = (data, value: string) => {
-  return data.filter(d => d.name.toLowerCase().includes(value.toLowerCase()))
+export const filterInputData = (data: DataInterface[], value: string) => {
+  return data.filter((d: DataInterface) => d.name.toLowerCase().includes(value.toLowerCase()))
 }
 
-export const useDebounce = (value, delay) =>  {
+export const useDebounce = (value: string, delay: number) =>  {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(
