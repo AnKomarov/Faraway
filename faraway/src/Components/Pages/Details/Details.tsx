@@ -34,7 +34,6 @@ const Details = (props: DetailsPageInterface) => {
   }, [name]);
 
   useEffect(() => {
-    debugger
     if(starshipsUrls.length > 0) {
       getDataArr(starshipsUrls, getStarShips, setIsReadyDataStarShips);
     } else {
